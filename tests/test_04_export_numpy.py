@@ -28,7 +28,7 @@ def brax_policy():
 
 
 def test_export_matches_jax_inference(brax_policy, tmp_path):
-    _, params, normalizer, inference = brax_policy
+    networks, params, normalizer, inference = brax_policy
     path = export_policy(params, normalizer, tmp_path / "policy.npz")
     policy = NumpyPolicy.load(path)
     jax_policy = jax.jit(inference((normalizer, params), deterministic=True))

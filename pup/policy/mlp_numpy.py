@@ -29,8 +29,30 @@ class NumpyPolicy:
     def __init__(self, archive: dict) -> None:
         """Build from the dict of arrays produced by ``pup.train.export``."""
         # ===== TODO(student): Unpack the archive into layers and metadata =====
-        raise NotImplementedError(
-            "Stage 4: Unpack the archive into layers and metadata. See docs/04_training_with_brax.md")
+        self.obs_mean = archive["obs_mean"]
+        self.obs_std = archive["obs_std"] 
+
+        self.obs_size = archive["obs_size"]
+        self.action_size = archive["action_size"]
+
+        self.action_scale = archive["action_scale"]
+
+        self.hidden_activation = archive["hidden_activation"]
+
+        self.default_pose = archive["default_pose"]
+
+        self.hidden_activation = archive["hidden_activation"]
+        
+        self.n_layers = archive["n_layers"].astype(int)
+
+        self.layers = []
+        for i in range(self.n_layers):
+            W = archive[f"kernel_{i}"]
+            b = archive[f"bias_{i}"]
+
+            self.layers.append((W,b))
+
+        self.layers = tuple(self.layers)
         # ===== end TODO =====
 
     @classmethod
@@ -42,13 +64,25 @@ class NumpyPolicy:
     def __call__(self, obs: np.ndarray) -> np.ndarray:
         """Map a (45,) observation to a (12,) action in [-1, 1], unitless."""
         # ===== TODO(student): Normalize, run the MLP, and squash with tanh =====
-        raise NotImplementedError(
-            "Stage 4: Normalize, run the MLP, and squash with tanh. See docs/04_training_with_brax.md")
+        x = (obs - self.obs_mean) / self.obs_std
+
+        for i in range(self.n_layers):
+            x = x @ self.layers[i][0] + self.layers[i][1] # data @ W + b
+            if i != (self.n_layers - 1):
+                x = swish(x)
+            else:
+                action = np.tanh(x[:12])
+
+        return action
         # ===== end TODO =====
 
     def joint_targets(self, obs: np.ndarray) -> np.ndarray:
         """Map a (45,) observation to (12,) joint position targets in rad."""
         # ===== TODO(student): Convert the action into absolute joint targets =====
-        raise NotImplementedError(
-            "Stage 4: Convert the action into absolute joint targets. See docs/04_training_with_brax.md")
+
+        action = self(obs)
+
+        target = self.default_pose + (self.action_scale * action)
+
+        return target
         # ===== end TODO =====

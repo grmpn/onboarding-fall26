@@ -65,23 +65,15 @@ def export_policy(params: Any, normalizer_params: Any, out_path: str | Path) -> 
     obs_mean = normalizer_params.mean
     obs_std = normalizer_params.std
 
-    kernels = []
-    biases = []
-
+    layers = {}
     for i in range(len(params['params'])):
-        kernel = params['params']['hidden_' + str(i)]['kernel']
-        bias = params['params']['hidden_' + str(i)]['bias']
+	    layers[f"kernel_{i}"] = params['params'][f"hidden_{i}"]['kernel']
+	    layers[f"bias_{i}"] = params['params'][f"hidden_{i}"]['bias']
 
-        kernels.append(kernel)
-        biases.append(bias)
-    
-    kernels = tuple(kernels)
-    biases = tuple(biases)
-    
-    n_layers = np.array(3)
+    n_layers = np.asarray(len(params['params']))
 
     obs_size = np.array(45)
-    action_size = np.array(24)
+    action_size = np.array(12)
 
     action_scale = np.array(ACTION_SCALE)
     default_pose = DEFAULT_POSE
@@ -94,12 +86,7 @@ def export_policy(params: Any, normalizer_params: Any, out_path: str | Path) -> 
         out_path,
         obs_mean=obs_mean,
         obs_std=obs_std,
-        kernel_0=kernels[0],
-        bias_0=biases[0],
-        kernel_1=kernels[1],
-        bias_1=biases[1],
-        kernel_2=kernels[2],
-        bias_2=biases[2],
+        **layers,
         n_layers=n_layers,
         obs_size=obs_size,
         action_size=action_size,

@@ -14,6 +14,8 @@ ros2_ws/log/
 MUJOCO_LOG.TXT
 .pup_progress.json
 *.log
+pup-training.zip
+
 
 # NOTE: results/ is deliberately NOT ignored -- your learning curve, eval JSONs
 # and GIFs are part of the submission (see SUBMISSION.md).
