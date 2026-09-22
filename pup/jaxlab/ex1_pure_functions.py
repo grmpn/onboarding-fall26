@@ -34,8 +34,6 @@ def absolute_value(x: jax.Array) -> jax.Array:
 
     return result
 
-    raise NotImplementedError(
-        "Stage 2: Replace Python branching with array selection. See docs/02_jax_for_robotics.md")
     # ===== end TODO =====
 
 
@@ -47,8 +45,6 @@ def replace_element(values: jax.Array, index: jax.Array, value: jax.Array) -> ja
 
     return new_array
 
-    raise NotImplementedError(
-        "Stage 2: Perform an immutable indexed update. See docs/02_jax_for_robotics.md")
     # ===== end TODO =====
 
 
@@ -63,6 +59,4 @@ def sum_indices(count: jax.Array) -> jax.Array:
 
     return result
 
-    raise NotImplementedError(
-        "Stage 2: Sum using a traced loop bound. See docs/02_jax_for_robotics.md")
     # ===== end TODO =====

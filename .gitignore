@@ -15,6 +15,7 @@ MUJOCO_LOG.TXT
 .pup_progress.json
 *.log
 pup-training.zip
+.obsidian/
 
 
 # NOTE: results/ is deliberately NOT ignored -- your learning curve, eval JSONs

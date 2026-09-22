@@ -33,8 +33,6 @@ def quat_rotate(q: jax.Array, v: jax.Array) -> jax.Array:
 
     return rotated
 
-    raise NotImplementedError(
-        "Stage 2: Rotate a vector by a unit quaternion. See docs/02_jax_for_robotics.md")
     # ===== end TODO =====
 
 
@@ -47,8 +45,6 @@ def quat_inv(q: jax.Array) -> jax.Array:
 
     return inv
 
-    raise NotImplementedError(
-        "Stage 2: Invert a unit quaternion. See docs/02_jax_for_robotics.md")
     # ===== end TODO =====
 
 
@@ -62,7 +58,4 @@ def gravity_in_body_frame(q_wb: jax.Array) -> jax.Array:
 
     return v_b
 
-
-    raise NotImplementedError(
-        "Stage 2: Express the world gravity direction in the body frame. See docs/02_jax_for_robotics.md")
     # ===== end TODO =====

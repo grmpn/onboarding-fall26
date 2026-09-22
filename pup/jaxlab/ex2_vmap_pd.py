@@ -36,8 +36,6 @@ def pd_torques(q: jax.Array, qd: jax.Array, q_des: jax.Array,
 
     return torque_clipped
 
-    raise NotImplementedError(
-        "Stage 2: Port the joint PD equation to JAX. See docs/02_jax_for_robotics.md")
     # ===== end TODO =====
 
 
@@ -52,6 +50,4 @@ def batched_pd(q: jax.Array, qd: jax.Array, q_des: jax.Array,
 
     return batch_result
 
-    raise NotImplementedError(
-        "Stage 2: Vectorize one PD controller over robots. See docs/02_jax_for_robotics.md")
     # ===== end TODO =====

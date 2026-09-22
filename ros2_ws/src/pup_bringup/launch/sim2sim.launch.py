@@ -16,6 +16,43 @@ from launch_ros.actions import Node
 def generate_launch_description() -> LaunchDescription:
     """Return the launch description for the full sim2sim stack."""
     # ===== TODO(student): Declare the launch arguments and the three nodes =====
-    raise NotImplementedError(
-        "Stage 5: Declare the launch arguments and the three nodes. See docs/05_ros2_sim2sim.md")
+
+    headless = LaunchConfiguration('headless')
+    realtime_factor = LaunchConfiguration('realtime_factor')
+    policy_path = LaunchConfiguration('policy_path')
+    teleop = LaunchConfiguration('teleop')
+
+    return LaunchDescription([
+        DeclareLaunchArgument('headless', default_value="false"),
+        DeclareLaunchArgument('realtime_factor', default_value="1.0"),
+        DeclareLaunchArgument('teleop', default_value='false'),
+        DeclareLaunchArgument('policy_path', default_value=''),
+
+        # Simulator
+        Node(
+            package='pup_sim',
+            executable='sim_node',
+            name='pup_sim',
+            output='screen',
+            parameters=[{"headless": headless, "realtime_factor": realtime_factor}],
+        ),
+
+        # Policy
+        Node(
+            package='pup_bringup',
+            executable='policy_node',
+            name='pup_policy',
+            output='screen',
+            parameters=[{"policy_path": policy_path}],
+        ),
+
+        # Teleop
+        Node(
+            package='pup_sim',
+            executable='teleop_node',
+            name='pup_teleop',
+            output='screen',
+            condition=IfCondition(teleop),
+        ),
+    ])
     # ===== end TODO =====

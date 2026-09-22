@@ -82,27 +82,25 @@ class PupJoystick(mjx_env.MjxEnv):
         """
         # ===== TODO(student): Build the exact 45-dimensional observation =====
 
-        obs = []
-
         # gyro
-        obs.append(get_sensor_data(self.mj_model, data, "gyro"))
+        gyro = get_sensor_data(self.mj_model, data, "gyro")
 
         # gravity direction    
-        obs.append(gravity_in_body_frame(get_sensor_data(self.mj_model, data, "orientation")))
+        grav_body = gravity_in_body_frame(get_sensor_data(self.mj_model, data, "orientation"))
 
         # command
-        obs.append(info["command"])
+        command = info["command"]
 
         # delta joint angle
-        obs.append(data.qpos[7:] - self._default_pose)
+        delta_joint = data.qpos[7:] - self._default_pose
 
         # joint velocities
-        obs.append(data.qvel[6:])
+        joint_vel = data.qvel[6:]
 
         # last action
-        obs.append(info["last_act"])
+        last_action = info["last_act"]
 
-        obs = jnp.concatenate(obs)
+        obs = jnp.concatenate([gyro, grav_body, command, delta_joint, joint_vel, last_action])
 
         # noise
         #noise = jax.random.uniform(info["rng"], shape=(45,), minval=-1.0, maxval=1.0)
@@ -110,8 +108,6 @@ class PupJoystick(mjx_env.MjxEnv):
 
         return obs
 
-        #raise NotImplementedError(
-        #    "Stage 3: Build the exact 45-dimensional observation. See docs/03_mjx_environment.md")
         # ===== end TODO =====
 
     def _get_termination(self, data: mjx.Data) -> jax.Array:
@@ -126,8 +122,6 @@ class PupJoystick(mjx_env.MjxEnv):
 
         return upside_down | too_low | non_finite
 
-        #raise NotImplementedError(
-        #    "Stage 3: Detect falls and invalid simulation states. See docs/03_mjx_environment.md")
         # ===== end TODO =====
 
     def sample_command(self, rng: jax.Array) -> jax.Array:
@@ -147,8 +141,6 @@ class PupJoystick(mjx_env.MjxEnv):
 
         return sample
 
-        #raise NotImplementedError(
-        #    "Stage 3: Sample a bounded command including standing. See docs/03_mjx_environment.md")
         # ===== end TODO =====
 
     def _update_feet(self, data: mjx.Data, info: dict) -> tuple:
@@ -208,8 +200,6 @@ class PupJoystick(mjx_env.MjxEnv):
         # update action history
         info = {**info, "last_last_act": info["last_act"], "last_act": action}
 
-        #raise NotImplementedError(
-        #    "Stage 3: Apply targets, step physics, and assemble scaled rewards. See docs/03_mjx_environment.md")
         # ===== end TODO =====
         # Brax wrappers add their own metric keys; update, never replace.
         metrics = {**state.metrics, **scaled}

@@ -93,6 +93,4 @@ def stand_up(duration_s: float = 3.0, headless: bool = True,
      "fell": fell}
 
     # ===== TODO(student): Interpolate from crouch to home and measure stability =====
-    raise NotImplementedError(
-        "Stage 1: Interpolate from crouch to home and measure stability. See docs/01_mujoco_and_pd.md")
     # ===== end TODO =====
