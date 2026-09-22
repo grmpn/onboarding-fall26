@@ -22,9 +22,35 @@
 <summary>paste the full output here</summary>
 
 ```
-$ uv run python scripts/progress.py --slow
+[100%]
+================================== warnings summary ===================================
+.venv/lib/python3.11/site-packages/jaxopt/__init__.py:59
+  /home/rainb/dev/onboarding-fall26/.venv/lib/python3.11/site-packages/jaxopt/__init__.py:59: DeprecationWarning: JAXopt is no longer maintained. See https://docs.jax.dev/en/latest/ for alternatives.
+    warnings.warn(
 
-(paste)
+tests/test_04_train_smoke.py::test_cpu_smoke
+  /home/rainb/dev/onboarding-fall26/.venv/lib/python3.11/site-packages/brax/training/agents/ppo/train.py:756: DeprecationWarning: jax.device_put_replicated is deprecated; use jax.device_put instead.
+    training_state = jax.device_put_replicated(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+
+Pup onboarding progress
+  ✓ PASSED        Stage 1  MuJoCo + PD controller    12 passed, 0 failed, 0 not started, 0 skipped
+  ✓ PASSED        Stage 2  JAX for robotics          9 passed, 0 failed, 0 not started, 0 skipped
+  ✓ PASSED        Stage 3  MJX environment           11 passed, 0 failed, 0 not started, 0 skipped
+  ✓ PASSED        Stage 4  Brax PPO + export         4 passed, 0 failed, 0 not started, 0 skipped
+36 passed, 1 skipped, 2 deselected, 2 warnings in 300.59s (0:05:00)
+
+==============================================================================
+PUP ONBOARDING PROGRESS
+==============================================================================
+✓ PASSED         Stage 1  MuJoCo + PD controller    12 passing
+✓ PASSED         Stage 2  JAX for robotics          9 passing
+✓ PASSED         Stage 3  MJX environment           11 passing
+✓ PASSED         Stage 4  Brax PPO + export         4 passing
+◻ CONTAINER      Stage 5  ROS 2 sim2sim             run tests/test_05_ros2_smoke.sh inside docker/ros2
+==============================================================================
+Every TODO(student) block is written. Nice.
 ```
 
 </details>

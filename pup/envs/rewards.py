@@ -13,8 +13,6 @@ def reward_tracking_lin_vel(command: jax.Array, local_linvel: jax.Array,
 
     return reward
 
-    raise NotImplementedError(
-        "Stage 3: Reward tracking the commanded body-frame xy velocity. See docs/03_mjx_environment.md")
     # ===== end TODO =====
 
 
@@ -27,8 +25,6 @@ def reward_tracking_ang_vel(command: jax.Array, ang_vel: jax.Array,
 
     return reward
 
-    raise NotImplementedError(
-        "Stage 3: Reward tracking the commanded yaw rate. See docs/03_mjx_environment.md")
     # ===== end TODO =====
 
 
@@ -40,9 +36,7 @@ def cost_action_rate(act: jax.Array, last_act: jax.Array,
     reward = jnp.sum((act - last_act)**2) + jnp.sum((act - 2*last_act + last_last_act)**2)
 
     return reward
-
-    raise NotImplementedError(
-        "Stage 3: Penalize changes in actions and their first differences. See docs/03_mjx_environment.md")
+    
     # ===== end TODO =====
 
 
