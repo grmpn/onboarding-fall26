@@ -264,25 +264,26 @@ Measured `/pup/joint_command` rate from `ros2 topic hz`: **50.0 hz**
 **List two ways sim2sim can pass while real hardware still fails, and what you
 would add to the sim node to catch each.**
 
->
+>Sim2sim could fail to account for varying ground frictions and the robot starting at a position that varies from the exact home position. To evaluate under differing conditions better, the sim node could slightly randomize ground friction in `self.model` for each trial and robot home position slightly in `self.data` on each reset.  
 
 ## What was hardest?
 
 One paragraph. This is will help us improve onboarding.
 
->
+>The most confusing part for me was the Colab training workflow. The instructions suggest starting the Colab run before completing tasks 4 and 5, but the notebook depends on the task 4 implementation. When I was updating the code, I messed up by deleting and re-cloning the repo inside Colab instead of using git pull, which erased training progress. I think adding a small git pull code block into the notebook could improve the Colab training section. 
+
 
 ## Time spent
 
-| Stage | Hours |
-|---|---|
-| 0 Setup | |
-| 1 MuJoCo + PD | |
-| 2 JAX | |
-| 3 MJX env | |
-| 4 Brax + export | |
-| 5 ROS 2 | |
-| **Total** | |
+| Stage           | Hours |
+| --------------- | ----- |
+| 0 Setup         | 0.1   |
+| 1 MuJoCo + PD   | 1     |
+| 2 JAX           | 1     |
+| 3 MJX env       | 3     |
+| 4 Brax + export | 3     |
+| 5 ROS 2         | 1.5   |
+| **Total**       | ~9.6  |
 
 ---
 
